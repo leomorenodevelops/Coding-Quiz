@@ -10,45 +10,45 @@
 <body>
     
     <header>
-        <div id="view-high-scores">View High Scores</div>
+        <div id="view-high-scores">View high scores</div>
         <div class="timer">Time: <span id="timer"></span></div>
     </header>
 
     <div id="start-container" class="show">
-        <div class="container-start">
+        <div class="start">
             <h1>Coding Quiz Challenge</h1>
             <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds.</p>
-            <button class="btn-start" id="start-game">Start Quiz</button>
+            <button class="button" id="start-game">Start Quiz</button>
         </div>
     </div>
 
-    <div id="questions-container" class="hide">
-        <div class="container-questions">
+    <div id="question-container" class="hide">
+        <div class="question-content">
             <div id="question"></div>
-            <div id="answer-buttons" class="btn-box"></div>
+            <div id="answer-buttons" class="button-box"></div>
         </div>
     </div>
 
     <div id="end-container" class="hide">
-        <div class="container-end">
-            <div id="score-banner">
+        <div class="end-content">
+            <div id="score">
                 <h1>All done!</h1>
             </div>
             <form id="initials-form" class="initials">
                 <p>Enter initials:
                     <input type="text" name="initials" id="initials" class="text-input" />
-                    <button class="btn-submit" id="submit-score" type="submit">Submit</button></p>
+                    <button class="button" id="submit-score" type="submit">Submit</button></p>
             </form>
         </div>
     </div>
 
-    <div id="high-scores-container" class="hide">
-        <div class="container-high-scores">
+    <div id="high-score-container" class="hide">
+        <div class="high-score-content">
             <h1 class="high-score">High scores</h1>
             <ol id="high-score-list" class="score-list"></ol>
         <div>
-            <button class="btn" id="go-back">Go back</button>
-            <button class="btn" id="clear-high-scores">Clear high scores</button>
+            <button class="button" id="go-back">Go back</button>
+            <button class="button" id="clear-high-scores">Clear high scores</button>
         </div>
         </div>
     </div>
