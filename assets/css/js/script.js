@@ -25,7 +25,7 @@ timerEl.innerText = 0;
 var highScores [];
 
 // assign array shuffled questions
-var shuffledQuestions;
+var shuffleQuestions;
 var questionIndex = 0;
 
 // the array of questions for coding quiz challenge
@@ -53,7 +53,7 @@ var questions = [
 ];
 
 // when go back button is clicked on high score page it goes back to start quiz page
-var renderStartPage = function () {
+var renderStartPage = function() {
     highscoreContainerEl.classList.add("hide");
     highscoreContainerEl.classList.remove("show");
     startContainerEl.classList.remove("hide");
@@ -72,4 +72,43 @@ var renderStartPage = function () {
         wrongEl.classList.remove("show");
         wrongEl.classList.add("hide");
     }
+}
+
+// set time to timer and setting the timer start time to 75 seconds
+var setTime = function() {
+    timeLeft = 75;
+
+    var timerCheck = setInterval(function() {
+        timerEl.innerText = timeLeft;
+        timeLeft--;
+
+        if (gameOver) {
+            clearInterval(timerCheck);
+        }
+
+        if (timeLeft < 0) {
+            showScore();
+            timerEl.innerText = 0;
+            clearInterval(timerCheck);
+        }
+
+    }, 1000)
+}
+
+// start coding quiz challenge and added class to hide start screen and show questions screen.
+var startGame = function() {
+    startContainerEl.classList.add("hide");
+    startContainerEl.classList.remove("show");
+    questionContainerEl.classList.remove("hide");
+    questionContainerEl.classList.add("show");
+    // randomizing order of questions.
+    shuffleQuestions = questions.sort(() => Math.random() - 0.5);
+    setTime();
+    setQuestion();
+}
+
+// sets next quiz question
+var setQuestion = function() {
+    resetAnswer();
+    displayQuestion(shuffleQuestions[questionIndex]);
 }
