@@ -13,8 +13,8 @@ var startGameEl = document.getElementById("start-game");
 var goBackEl = document.getElementById("go-back");
 var clearHighscoreEl = document.getElementById("clear-high-score");
 var chooseAnswerEl = document.getElementById("choose-answer");
-var questionEl = document.getElementById("question");
 // timer elements
+var questionEl = document.getElementById("question");
 var timerEl = document.getElementById("timer");
 var score = 0;
 var timeLeft;
@@ -111,4 +111,79 @@ var startGame = function() {
 var setQuestion = function() {
     resetAnswer();
     displayQuestion(shuffleQuestions[questionIndex]);
+}
+
+// removes answer buttons
+var resetAnswer = function() {
+    while (chooseAnswerEl.firstChild) {
+        chooseAnswerEl.removeChild(chooseAnswerEl.firstChild);
+    }
+}
+
+// displays questions including answer buttons
+var displayQuestion = function(index) {
+    questionEl.innerText = index.Q;
+
+    for (var i = 0; i < index.choices.length; i++) {
+        var answerButton = document.createElement('button');
+        answerButton.innerText = index.choices[i].choice;
+        answerButton.classList.add('answerbtn');
+        answerButton.addEventListener("click", answerCheck);
+        chooseAnswerEl.appendChild(answerButton)
+    }
+}
+
+// add banner class to display Correct! when correct answer is chosen.
+var answerCorrect = function() {
+
+    if (correctEl.className = "hide") {
+        correctEl.classList.remove("hide");
+        correctEl.classList.add("banner");
+        wrongEl.classList.remove("banner");
+        wrongEl.classList.add("hide");
+    }
+}
+
+// add banner class to display Wrong! when the wrong answer is chosen.
+var answerWrong = function() {
+
+    if (wrongEl.className = "hide") {
+        wrongEl.classList.remove("hide");
+        wrongEl.classList.add("banner");
+        correctEl.classList.remove("banner");
+        correctEl.classList.add("hide");
+    }
+}
+
+// verifies right answer was selected if so user scores 10 points, if not user loses 10 seconds and 10 points.
+var answerCheck = function() {
+    var answerSelect = event.target;
+
+    if (shuffleQuestions[questionIndex].A === answerSelect.innerText) {
+        answerCorrect();
+        score = score + 10;
+    }
+
+    else {
+        answerWrong();
+        score = score - 10;
+        timeLeft = timeLeft - 10;
+    };
+
+    // goes to next question but if no more questions remain it's game over and then shows score.
+    questionIndex++
+
+    if (shuffleQuestions.length > questionIndex + 1) {
+        setQuestion();
+    }
+
+    else {
+        gameOver = "true";
+        showScore();
+    }
+}
+
+// displays total score screen at the end of the coding quiz
+var showScore = function() {
+    
 }
