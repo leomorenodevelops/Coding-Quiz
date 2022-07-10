@@ -256,3 +256,51 @@ var loadHighscore = function() {
         highScores.push(loadedHighscores[i]);
     }
 }
+
+// display high score screen from link or when initials entered
+var displayHighscores = function() {
+
+    highscoreContainerEl.classList.remove("hide");
+    highscoreContainerEl.classList.add("show");
+    gameOver = "true";
+
+    if (endContainerEl.className = "show") {
+        endContainerEl.classList.remove("show");
+        endContainerEl.classList.add("hide");
+    }
+
+    if (startContainerEl.className = "show") {
+        startContainerEl.classList.remove("show");
+        startContainerEl.classList.add("hide");
+    }
+
+    if (questionContainerEl.className = "show") {
+        questionContainerEl.classList.remove("show");
+        questionContainerEl.classList.add("hide");
+    }
+
+    if (correctEl.className = "show") {
+        correctEl.classList.remove("show");
+        correctEl.classList.add("hide");
+    }
+
+    if (wrongEl.className = "show") {
+        wrongEl.classList.remove("show");
+        wrongEl.classList.add("hide");
+    }
+}
+
+// clears high scores
+var clearScores = function() {
+    highScores = [];
+
+    while (highscoreListEl.firstChild) {
+        highscoreListEl.removeChild(highscoreListEl.firstChild);
+    }
+
+    localStorage.clear(highScores);
+}
+
+loadHighscore();
+
+// on start click, start game
