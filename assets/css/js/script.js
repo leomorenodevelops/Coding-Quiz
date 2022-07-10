@@ -22,7 +22,7 @@ var gameOver;
 timerEl.innerText = 0;
 
 // high score array
-var highScores [];
+var highScores = [];
 
 // assign array shuffled questions
 var shuffleQuestions;
@@ -185,5 +185,53 @@ var answerCheck = function() {
 
 // displays total score screen at the end of the coding quiz
 var showScore = function() {
+    questionContainerEl.classList.add("hide");
+    endContainerEl.classList.remove("hide");
+    endContainerEl.classList.add("show");
+
+    var scoreDisplay = document.createElement("p");
+    scoreDisplay.innerText = ("Your final score is " + score +".");
+    scoreEl.appendChild(scoreDisplay);
+}
+
+// create high score values
+var highscoreVal = function() {
+    event.preventDefault();
+    var initials = document.querySelector("#initials").value;
+    if (!initials) {
+        alert("Enter initials!");
+        return;
+    }
+}
+
+initialsFormEl.reset();
+
+var highScore = {
+    initials: initials,
+    score: score
+}
+
+// high score input and sorting
+highScores.push(highScore);
+highScores.sort((a, b) => {return b.score-a.score});
+
+// 
+while (highscoreListEl.firstChild) {
+    highscoreListEl.removeChild(highscoreListEl.firstChild);
+}
+
+// creates elements in order of high scores
+for (var i = 0; i < highScores.length; i++) {
+    var highscoreLi = document.createElement("li");
+    highscoreLi.className = "high-score";
+    highscoreLi.innerHTML = highScores[i].initials + " - " + highScores[i].score;
+    highscoreListEl.appendChild(highscoreLi);
+}
+
+saveHighscore();
+displayHighscores();
+
+// save high score
+var saveHighscore = function() {
     
 }
