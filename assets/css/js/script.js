@@ -233,5 +233,26 @@ displayHighscores();
 
 // save high score
 var saveHighscore = function() {
-    
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+}
+
+// load values and called on page load
+var loadHighscore = function() {
+    var loadedHighscores = localStorage.getItem("highScores");
+
+    if (!loadedHighscores) {
+        return false;
+    }
+
+    loadedHighscores = JSON.parse(loadedHighscores);
+    loadedHighscores.sort((a, b) => {return b.score-a.score})
+
+    for (var i = 0; i < loadedHighscores.length; i++) {
+        var highscoreEl = document.createElement("li");
+        highscoreEl.className = "high-score";
+        highscoreEl.innerText = loadedHighscores[i].initials + " - " + loadedHighscores[i].score;
+        highscoreListEl.appendChild(highscoreEl);
+
+        highScores.push(loadedHighscores[i]);
+    }
 }
