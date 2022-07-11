@@ -183,6 +183,8 @@ var highscoreVal = function(event) {
         return;
     }
 }
+
+// saves initials and score to highscores
 var saveHighscore = function() {
     var highScore = {
         initials: initialsFormEl.value,
@@ -193,6 +195,7 @@ var saveHighscore = function() {
     displayHighscores();
 }
 
+// loads highscores and loads them sorted
 var loadHighscore = function() {
     
     highScores.sort((a, b) => {return b.score-a.score})
@@ -205,6 +208,7 @@ var loadHighscore = function() {
     }
 }
 
+// displays highscores and hides other elements on page
 var displayHighscores = function() {
 
     highscoreContainerEl.classList.remove("hide");
@@ -238,9 +242,52 @@ var displayHighscores = function() {
     loadHighscore();
 }
 
+// when go back button is clicked on high score page it goes back to start quiz page
+var renderStartPage = function() {
+    highscoreContainerEl.classList.add("hide");
+    highscoreContainerEl.classList.remove("show");
+    startContainerEl.classList.remove("hide");
+    startContainerEl.classList.add("show");
+    scoreEl.removeChild(scoreEl.lastChild);
+    questionIndex = 0;
+    gameOver = "";
+    timerEl.textContent = 0;
+    score = 0;
+
+    if (correctEl.className = "show") {
+        correctEl.classList.remove("show");
+        correctEl.classList.add("hide");
+    }
+    if (wrongEl.className = "show") {
+        wrongEl.classList.remove("show");
+        wrongEl.classList.add("hide");
+    }
+}
+
+// clears high scores
+var clearScores = function() {
+    highScores = [];
+
+    while (highscoreListEl.firstChild) {
+        highscoreListEl.removeChild(highscoreListEl.firstChild);
+    }
+
+    localStorage.clear(highScores);
+}
+
+loadHighscore();
+
 // on start click, start game
 startGameEl.addEventListener("click", startGame);
 
+// on submit click, saves score
 submitEl.addEventListener("click", saveHighscore);
 
+// on view highscore click, goes to display highscores screen
 viewHighscoreEl.addEventListener("click", displayHighscores);
+
+// go back takes user back to start quiz screen
+goBackEl.addEventListener("click", renderStartPage);
+
+// clear scores
+clearHighscoreEl.addEventListener("click", clearScores);

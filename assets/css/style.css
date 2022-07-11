@@ -6,6 +6,7 @@
     --light: white;
     --mid: #ee82ee;
     --dark: #4b0082;
+    --banner: #A9A9A9;
 }
 
 body {
@@ -21,7 +22,7 @@ header {
     width: 90%;
     padding-top: 15px;
 }
-
+ /* targets view highscore link properties */
 #view-high-score {
     color: var(--mid);
 }
@@ -30,12 +31,13 @@ header {
     cursor: pointer;
 }
 
+/* targets timer properties */
 .time {
     display: inline;
     text-align: right;
     padding-right: 20px;
 }
-
+ /* targets start class properties inside start container */
 .start {
     padding: 20px;
     flex-direction: column;
@@ -49,6 +51,7 @@ h1 {
     font-weight: bold;
 }
 
+/* targets questions content section properties */
 .question-content {
     align-items: flex-start;
     justify-content: flex-start;
@@ -56,6 +59,11 @@ h1 {
     margin: auto;
 }
 
+#question {
+    font-size: 16px;
+}
+
+/* targets text input box */
 .text-input {
     border-width: 1px;
     padding: 5px;
@@ -70,6 +78,7 @@ h1 {
     display: none;
 }
 
+/* targets button properties */
 .button {
     background: var(--dark);
     color: var(--light);
@@ -90,3 +99,51 @@ h1 {
     flex-direction: column;
     justify-content: space-between;
 }
+
+/* targets end content at end of quiz */
+.end-content {
+    padding: 20px;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+}
+
+/* targets highscore properties */
+.high-score-content {
+    padding: 20px;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+}
+
+/* targets answer button properties */
+.answerbtn {
+    background: var(--dark);
+    color: var(--light);
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 5px;
+    width: 35%
+}
+
+.answerbtn:hover {
+    background: var(--mid);
+    cursor: pointer;
+}
+
+/* targets banner properties that display correct/wrong after answer is selected */
+.banner {
+    color: var(--banner);
+     font-style: italic;
+     margin: 0 100px;
+     text-align: center;
+}
+
+.banner h2 {
+    border-top: 2px solid var(--banner);
+    margin: 0 auto;
+    padding-top: 5px;
+    width: 50%;
+}
+
