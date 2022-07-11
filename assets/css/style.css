@@ -22,9 +22,12 @@ header {
     padding-top: 15px;
 }
 
+#view-high-score {
+    color: var(--mid);
+}
+
 #view-high-score:hover {
     cursor: pointer;
-    color: var(--mid);
 }
 
 .time {

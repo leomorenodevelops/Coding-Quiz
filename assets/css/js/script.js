@@ -13,6 +13,7 @@ var startGameEl = document.getElementById("start-game");
 var goBackEl = document.getElementById("go-back");
 var clearHighscoreEl = document.getElementById("clear-high-score");
 var chooseAnswerEl = document.getElementById("choose-answer");
+var submitEl = document.getElementById("submit-score");
 // timer elements
 var questionEl = document.getElementById("question");
 var timerEl = document.getElementById("timer");
@@ -22,7 +23,7 @@ var gameOver;
 timerEl.innerText = 0;
 
 // high score array
-var highScores = [];
+var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
 // assign array shuffled questions
 var shuffleQuestions;
@@ -31,7 +32,7 @@ var questionIndex = 0;
 // the array of questions for coding quiz challenge
 var questions = [
     { Q: 'Commonly used data types DO Not Include:',
-    choices: [{choice: '1. strings'}, {choice: '2. booleans'}, {choice: '3. alerts'}, {choice: '4.'}],
+    choices: [{choice: '1. strings'}, {choice: '2. booleans'}, {choice: '3. alerts'}, {choice: '4. numbers'}],
       A: '3. alerts'
     },
     { Q: 'The condition in an if / else statement is enclosed with __________.',
@@ -52,27 +53,6 @@ var questions = [
     },
 ];
 
-// when go back button is clicked on high score page it goes back to start quiz page
-var renderStartPage = function() {
-    highscoreContainerEl.classList.add("hide");
-    highscoreContainerEl.classList.remove("show");
-    startContainerEl.classList.remove("hide");
-    startContainerEl.classList.add("show");
-    scoreEl.removeChild(scoreEl.lastChild);
-    questionIndex = 0;
-    gameOver = "";
-    timerEl.textContent = 0;
-    score = 0;
-
-    if (correctEl.className = "show") {
-        correctEl.classList.remove("show");
-        correctEl.classList.add("hide");
-    }
-    if (wrongEl.className = "show") {
-        wrongEl.classList.remove("show");
-        wrongEl.classList.add("hide");
-    }
-}
 
 // set time to timer and setting the timer start time to 75 seconds
 var setTime = function() {
@@ -156,7 +136,7 @@ var answerWrong = function() {
 }
 
 // verifies right answer was selected if so user scores 10 points, if not user loses 10 seconds and 10 points.
-var answerCheck = function() {
+var answerCheck = function(event) {
     var answerSelect = event.target;
 
     if (shuffleQuestions[questionIndex].A === answerSelect.innerText) {
@@ -173,7 +153,7 @@ var answerCheck = function() {
     // goes to next question but if no more questions remain it's game over and then shows score.
     questionIndex++
 
-    if (shuffleQuestions.length > questionIndex + 1) {
+    if (shuffleQuestions.length > questionIndex) {
         setQuestion();
     }
 
@@ -195,7 +175,7 @@ var showScore = function() {
 }
 
 // create high score values
-var highscoreVal = function() {
+var highscoreVal = function(event) {
     event.preventDefault();
     var initials = document.querySelector("#initials").value;
     if (!initials) {
@@ -203,61 +183,28 @@ var highscoreVal = function() {
         return;
     }
 }
-
-initialsFormEl.reset();
-
-var highScore = {
-    initials: initials,
-    score: score
-}
-
-// high score input and sorting
-highScores.push(highScore);
-highScores.sort((a, b) => {return b.score-a.score});
-
-// 
-while (highscoreListEl.firstChild) {
-    highscoreListEl.removeChild(highscoreListEl.firstChild);
-}
-
-// creates elements in order of high scores
-for (var i = 0; i < highScores.length; i++) {
-    var highscoreLi = document.createElement("li");
-    highscoreLi.className = "high-score";
-    highscoreLi.innerHTML = highScores[i].initials + " - " + highScores[i].score;
-    highscoreListEl.appendChild(highscoreLi);
-}
-
-saveHighscore();
-displayHighscores();
-
-// save high score
 var saveHighscore = function() {
+    var highScore = {
+        initials: initialsFormEl.value,
+        score: score
+    }
+    highScores.push(highScore);
     localStorage.setItem("highScores", JSON.stringify(highScores));
+    displayHighscores();
 }
 
-// load values and called on page load
 var loadHighscore = function() {
-    var loadedHighscores = localStorage.getItem("highScores");
+    
+    highScores.sort((a, b) => {return b.score-a.score})
 
-    if (!loadedHighscores) {
-        return false;
-    }
-
-    loadedHighscores = JSON.parse(loadedHighscores);
-    loadedHighscores.sort((a, b) => {return b.score-a.score})
-
-    for (var i = 0; i < loadedHighscores.length; i++) {
+    for (var i = 0; i < highScores.length; i++) {
         var highscoreEl = document.createElement("li");
         highscoreEl.className = "high-score";
-        highscoreEl.innerText = loadedHighscores[i].initials + " - " + loadedHighscores[i].score;
+        highscoreEl.innerText = highScores[i].initials + " - " + highScores[i].score;
         highscoreListEl.appendChild(highscoreEl);
-
-        highScores.push(loadedHighscores[i]);
     }
 }
 
-// display high score screen from link or when initials entered
 var displayHighscores = function() {
 
     highscoreContainerEl.classList.remove("hide");
@@ -288,19 +235,12 @@ var displayHighscores = function() {
         wrongEl.classList.remove("show");
         wrongEl.classList.add("hide");
     }
+    loadHighscore();
 }
-
-// clears high scores
-var clearScores = function() {
-    highScores = [];
-
-    while (highscoreListEl.firstChild) {
-        highscoreListEl.removeChild(highscoreListEl.firstChild);
-    }
-
-    localStorage.clear(highScores);
-}
-
-loadHighscore();
 
 // on start click, start game
+startGameEl.addEventListener("click", startGame);
+
+submitEl.addEventListener("click", saveHighscore);
+
+viewHighscoreEl.addEventListener("click", displayHighscores);
