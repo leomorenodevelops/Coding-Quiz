@@ -60,7 +60,7 @@ h1 {
 }
 
 #question {
-    font-size: 16px;
+    font-size: 24px;
 }
 
 /* targets text input box */
@@ -86,7 +86,6 @@ h1 {
     border-radius: 10px;
     border: none;
     margin-top: 5px;
-    width: 35%
 }
 
 .button:hover {
@@ -144,6 +143,6 @@ h1 {
     border-top: 2px solid var(--banner);
     margin: 0 auto;
     padding-top: 5px;
-    width: 50%;
+    width: 70%;
 }
 

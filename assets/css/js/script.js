@@ -135,7 +135,7 @@ var answerWrong = function() {
     }
 }
 
-// verifies right answer was selected if so user scores 10 points, if not user loses 10 seconds and 10 points.
+// verifies right answer was selected if so user scores 10 points, if not user loses 10 seconds and 5 points.
 var answerCheck = function(event) {
     var answerSelect = event.target;
 
@@ -146,7 +146,7 @@ var answerCheck = function(event) {
 
     else {
         answerWrong();
-        score = score - 10;
+        score = score - 5;
         timeLeft = timeLeft - 10;
     };
 
@@ -199,7 +199,8 @@ var saveHighscore = function() {
 var loadHighscore = function() {
     
     highScores.sort((a, b) => {return b.score-a.score})
-
+    console.log(highscoreListEl);
+    highscoreListEl.innerHTML="";
     for (var i = 0; i < highScores.length; i++) {
         var highscoreEl = document.createElement("li");
         highscoreEl.className = "high-score";
